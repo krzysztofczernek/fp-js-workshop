@@ -1,0 +1,15 @@
+{
+  "name": "fp-js-workshop",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:krzysztofczernek/fp-js-workshop.git",
+  "author": "Krzysztof Czernek <krzysztof.czernek@u2i.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "ramda": "^0.25.0"
+  }
+}
