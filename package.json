@@ -6,7 +6,8 @@
   "author": "Krzysztof Czernek <krzysztof.czernek@u2i.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "jest": "^23.6.0",

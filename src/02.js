@@ -7,7 +7,6 @@ const keepHighest = (x, y) => x >= y ? x : y
 const max = numbers =>
   R.reduce((acc, x) => keepHighest(acc, x), 0, numbers)
 
-// const maxFP = () => undefined
 const maxFP = R.reduce(keepHighest, 0)
 
 module.exports = {
