@@ -25,3 +25,13 @@ brew install node yarn
     ```
     
 ## Workshops
+
+### Workshop #1
+
+1. Run the tests
+
+    ```bash
+    yarn run test:watch src/01
+    ```
+
+2. Go through the files in [src/01](./src/01), follow the instructions and make the tests pass.
