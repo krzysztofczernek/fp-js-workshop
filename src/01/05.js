@@ -1,55 +1,24 @@
 const R = require('ramda')
 
+const OUR_COUNTRY_NAME = 'Poland'
+
+const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY_NAME
+const wasNaturalized = person => Boolean(person.naturalizationDate)
+const isOver18 = person => person.age >= 18
+
+const isCitizen = person => wasBornInCountry(person) || wasNaturalized(person)
+
+const isEligibleToVote = person => isOver18(person) && isCitizen(person)
+
 // Exercise 05
-// print names of all "selected" people
+// Create an equivalent point-free version
 
-// // 1st attempt
-// const selectedNames = users => selectedUserIds => {
-//   return selectedUserIds
-//     .map(userIdString => parseInt(userIdString))
-//     .map(userId => users[userId])
-//     .map(user => user.name)
-// }
-
-// // Point-free!
-// const selectedNames = users => selectedUserIds => {
-//   return selectedUserIds
-//     .map(parseInt)
-//     .map(userId => users[userId])
-//     .map(user => user.name)
-// }
-
-// Ooops!
-
-// Ramda to the rescue!
-// const selectedNames = users => selectedUserIds => {
-//   return R.pipe(
-//     R.map(userIdString => parseInt(userIdString)),
-//     R.map(userId => users[userId]),
-//     R.map(user => user.name)
-//   )(selectedUserIds)
-// }
-
-// // Point-free!
-// const selectedNames = users =>
-//   R.pipe(
-//     R.map(parseInt),
-//     R.map(R.flip(R.prop)(users)),
-//     R.map(R.prop('name'))
-//   )
-
-// Compose!
-const selectedNames = users =>
-  R.pipe(
-    R.map(
-      R.pipe(
-        parseInt,
-        R.flip(R.prop)(users),
-        R.prop('name'),
-      )
-    )
-  )
+const wasBornInCountryFP = R.compose(R.equals(OUR_COUNTRY_NAME), R.prop('birthCountry'))
+const wasNaturalizedFP = R.compose(Boolean, R.prop('naturalizationDate'))
+const isOver18FP = R.compose(R.gte(R.__, 18), R.prop('age'))
+const isEligibleToVoteFP = R.both(isOver18FP, R.either(wasBornInCountryFP, wasNaturalizedFP))
 
 module.exports = {
-  selectedNames
+  isEligibleToVote,
+  isEligibleToVoteFP
 }

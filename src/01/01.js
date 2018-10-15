@@ -1,13 +1,13 @@
-const R = require('ramda')
+const splitOnSpace = text => text.split(' ')
 
-// Exercise 1
-// Refactor getFirstNames into getFirstNamesFP that uses getProp and getListProp
-const getFirstNames = people => people.map(person => person.firstName)
+// Exercise 01
+// Implement splitFP so that splitOnSpaceFP is effectively equal to splitOnSpace
 
-const getListProp = R.compose(R.map, R.prop)
-const getFirstNamesFP = getListProp('firstName')
+const splitFP = separator => text => text.split(separator)
+
+const splitOnSpaceFP = splitFP(' ')
 
 module.exports = {
-  getFirstNames,
-  getFirstNamesFP
+  splitOnSpace,
+  splitOnSpaceFP
 }

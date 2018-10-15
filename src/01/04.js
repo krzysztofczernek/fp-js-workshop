@@ -1,24 +1,18 @@
+// Example from https://github.com/loop-recur/FPJS-Class/blob/master/part1_exercises/exercises/compose/compose_exercises.js
+
 const R = require('ramda')
 
-const OUR_COUNTRY_NAME = 'Poland'
+// Exercise 04
+// Refactor fastestCar into a point-free fastestCarFP
+const fastestCar = cars => {
+  const sorted = R.sortBy(car => car.horsepower, cars)
+  const fastest = R.last(sorted)
+  return fastest.name
+}
 
-const wasBornInCountry = person => person.birthCountry === OUR_COUNTRY_NAME
-const wasNaturalized = person => Boolean(person.naturalizationDate)
-const isOver18 = person => person.age >= 18
-
-const isCitizen = person => wasBornInCountry(person) || wasNaturalized(person)
-
-const isEligibleToVote = person => isOver18(person) && isCitizen(person)
-
-// Exercise 4
-// Create an equivalent point-free version
-
-const wasBornInCountryFP = R.compose(R.equals(OUR_COUNTRY_NAME), R.prop('birthCountry'))
-const wasNaturalizedFP = R.compose(Boolean, R.prop('naturalizationDate'))
-const isOver18FP = R.compose(R.gte(R.__, 18), R.prop('age'))
-const isEligibleToVoteFP = R.both(isOver18FP, R.either(wasBornInCountryFP, wasNaturalizedFP))
+const fastestCarFP = R.compose(R.prop('name'), R.last, R.sortBy(R.prop('horsepower')))
 
 module.exports = {
-  isEligibleToVote,
-  isEligibleToVoteFP
+  fastestCar,
+  fastestCarFP
 }

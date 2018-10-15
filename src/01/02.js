@@ -1,15 +1,13 @@
 const R = require('ramda')
 
-const keepHighest = (x, y) => x >= y ? x : y
+// Exercise 02
+// Refactor getFirstNames into getFirstNamesFP that uses R.map and R.prop
+const getFirstNames = people => people.map(person => person.firstName)
 
-// Exercise 2
-// Refactor max into maxFP and avoid explicit references to numbers, acc, and x
-const max = numbers =>
-  R.reduce((acc, x) => keepHighest(acc, x), 0, numbers)
-
-const maxFP = R.reduce(keepHighest, 0)
+const getListProp = R.compose(R.map, R.prop)
+const getFirstNamesFP = getListProp('firstName')
 
 module.exports = {
-  max,
-  maxFP
+  getFirstNames,
+  getFirstNamesFP
 }

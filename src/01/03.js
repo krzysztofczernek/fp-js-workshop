@@ -1,18 +1,15 @@
-// Example from https://github.com/loop-recur/FPJS-Class/blob/master/part1_exercises/exercises/compose/compose_exercises.js
-
 const R = require('ramda')
 
-// Exercise 3
-// Refactor fastestCar into a point-free fastestCarFP
-const fastestCar = cars => {
-  const sorted = R.sortBy(car => car.horsepower, cars)
-  const fastest = R.last(sorted)
-  return fastest.name
-}
+const keepHighest = (x, y) => x >= y ? x : y
 
-const fastestCarFP = R.compose(R.prop('name'), R.last, R.sortBy(R.prop('horsepower')))
+// Exercise 03
+// Refactor max into maxFP and avoid explicit references to numbers, acc, and x
+const max = numbers =>
+  R.reduce((acc, x) => keepHighest(acc, x), 0, numbers)
+
+const maxFP = R.reduce(keepHighest, 0)
 
 module.exports = {
-  fastestCar,
-  fastestCarFP
+  max,
+  maxFP
 }

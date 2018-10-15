@@ -1,6 +1,7 @@
-const people = require('./01.json')
-const {getFirstNames, getFirstNamesFP} = require('./01')
+const {splitOnSpace, splitOnSpaceFP} = require('./01')
 
-test('getFirstNamesFP', () => {
-  expect(getFirstNamesFP(people)).toEqual(getFirstNames(people))
+const name = 'Krzysztof Piotr Czernek'
+
+test('splitOnSpaceFP', () => {
+  expect(splitOnSpaceFP(name)).toEqual(splitOnSpace(name))
 })

@@ -1,6 +1,6 @@
-const cars = require('./03.json')
-const {fastestCar, fastestCarFP} = require('./03')
+const numbers = require('./03.json')
+const {max, maxFP} = require('./03')
 
-test('fastestCarFP', () => {
-  expect(fastestCarFP(cars)).toEqual(fastestCar(cars))
+test('maxFP', () => {
+  expect(maxFP(numbers)).toEqual(max(numbers))
 })
