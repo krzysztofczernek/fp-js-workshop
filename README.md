@@ -35,3 +35,5 @@ brew install node yarn
     ```
 
 2. Go through the files in [src/01](./src/01), follow the instructions and make the tests pass.
+
+3. Finish [the homework](./src/01/homework.js)
