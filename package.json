@@ -7,10 +7,13 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "prettier --list-different '**/*.{ts,js,tsx,jsx}'",
+    "lint:fix": "prettier --write '**/*.{ts,js,tsx,jsx}'"
   },
   "devDependencies": {
     "jest": "^23.6.0",
+    "prettier": "^1.14.3",
     "ramda": "^0.25.0"
   }
 }

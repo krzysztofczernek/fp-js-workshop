@@ -10,7 +10,11 @@ const fastestCar = cars => {
   return fastest.name
 }
 
-const fastestCarFP = R.compose(R.prop('name'), R.last, R.sortBy(R.prop('horsepower')))
+const fastestCarFP = R.compose(
+  R.prop('name'),
+  R.last,
+  R.sortBy(R.prop('horsepower'))
+)
 
 module.exports = {
   fastestCar,

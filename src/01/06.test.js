@@ -1,4 +1,4 @@
-const {selectedNames} = require('./06')
+const { selectedNames } = require('./06')
 
 const users = {
   12: {
@@ -17,9 +17,5 @@ const users = {
 const selectedUserIds = ['12', '23', '34']
 
 test('selectedNames', () => {
-  expect(selectedNames(users)(selectedUserIds)).toEqual([
-    'Krzysztof',
-    'John',
-    'Jane'
-  ])
+  expect(selectedNames(users)(selectedUserIds)).toEqual(['Krzysztof', 'John', 'Jane'])
 })

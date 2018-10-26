@@ -2,6 +2,7 @@
 
 ## Prerequisites
 
+* An IDE of your choice
 * [Node >=8.x](https://nodejs.org/en/download/)
 * [yarn 1.5](https://yarnpkg.com/lang/en/docs/install/)
 

@@ -1,4 +1,4 @@
-const {removeQs, factorial, memoizedFactorial, memoizedFactorial2, uncurry} = require('./homework')
+const { removeQs, factorial, memoizedFactorial, memoizedFactorial2, uncurry } = require('./homework')
 
 test('removeQs', () => {
   expect(removeQs('abcqdqefgqhiqj')).toEqual('abcdefghij')

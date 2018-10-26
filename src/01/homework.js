@@ -9,7 +9,7 @@ const removeQs = xs => R.filter(x => !x.match(/q/i))(xs).join('')
 // Homework 02
 // Implement memoizedFactorial - a recursive, but memoized version of factorial, that remembers previous results and reuses them
 // Hint: IIFE
-function factorial (x) {
+function factorial(x) {
   // console.log(`computing factorial of ${x}`) // TODO uncomment to test memoization
   return x > 1 ? x * factorial(x - 1) : 1
 }
@@ -19,7 +19,7 @@ const memoizedFactorial = () => undefined
 // Homework 03
 // Implement a memoized helper that turns a given function into a memoized version
 
-const memoized = (fn) => () => undefined
+const memoized = fn => () => undefined
 
 const memoizedFactorial2 = memoized(factorial)
 

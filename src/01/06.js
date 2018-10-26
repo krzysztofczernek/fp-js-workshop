@@ -45,7 +45,7 @@ const selectedNames = users =>
       R.pipe(
         parseInt,
         R.flip(R.prop)(users),
-        R.prop('name'),
+        R.prop('name')
       )
     )
   )
