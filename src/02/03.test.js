@@ -1,28 +1,49 @@
-const { Identity } = require('./03')
+const { Maybe, Identity, Left, Right } = require('./typeclasses')
+const { increment, getUserNationalitySafe, greetActiveUser } = require('./03')
 
-const double = x => x * 2
-const length = x => x.length
-
-describe('Identity', () => {
-  test('constructor', () => {
-    expect(Identity(3).valueOf()).toEqual(3)
+describe('Exercise #1', () => {
+  test('increment', () => {
+    expect(increment(Maybe.of(1)).getInternalValue()).toEqual(2)
+    expect(increment(Identity.of(1)).getInternalValue()).toEqual(2)
   })
+})
 
-  describe('map', () => {
-    test('for numbers', () => {
-      expect(
-        Identity(3)
-          .map(double)
-          .valueOf()
-      ).toEqual(6)
-    })
+describe('Exercise #2', () => {
+  test('getUserNationalitySafe', () => {
+    const johnDoe = {
+      email: 'john@doe.com',
+      accountDetails: {
+        nationality: 'US'
+      }
+    }
+    const viktorNavorski = {
+      email: 'viktor@navorski.com',
+      accountDetails: {}
+    }
+    const unregisteredUser = {
+      email: 'test@example.com'
+    }
+    const noUser = null
 
-    test('for strings', () => {
-      expect(
-        Identity('test')
-          .map(length)
-          .valueOf()
-      ).toEqual(4)
-    })
+    expect(getUserNationalitySafe(johnDoe).getInternalValue()).toEqual(johnDoe.accountDetails.nationality)
+    expect(getUserNationalitySafe(viktorNavorski).getInternalValue()).toEqual(Maybe.Nothing)
+    expect(getUserNationalitySafe(unregisteredUser).getInternalValue()).toEqual(Maybe.Nothing)
+    expect(getUserNationalitySafe(noUser).getInternalValue()).toEqual(Maybe.Nothing)
+  })
+})
+
+describe('Exercise #3', () => {
+  test('greetActiveUser', () => {
+    const activeUser = {
+      name: 'John',
+      active: true
+    }
+    const inactiveUser = {
+      name: 'Jane',
+      active: false
+    }
+
+    expect(greetActiveUser(activeUser).getInternalValue()).toEqual('Welcome, John!')
+    expect(greetActiveUser(inactiveUser).getInternalValue()).toEqual('Your account is not active')
   })
 })

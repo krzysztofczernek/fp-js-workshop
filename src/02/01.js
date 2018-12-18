@@ -4,6 +4,7 @@ const trim = R.trim
 const uppercase = R.toUpper
 const replaceAwithZ = R.replace(/A/g, 'Z')
 
+// Reference implementation
 const processStrings = strings => {
   return strings
     .map(trim)
@@ -11,12 +12,16 @@ const processStrings = strings => {
     .map(replaceAwithZ)
 }
 
-const processStringsFP = R.pipe(
+// Exercise #1
+// Implement a processStrings version that is point-free
+const processStringsPointfree = R.pipe(
   R.map(trim),
   R.map(uppercase),
   R.map(replaceAwithZ)
 )
 
+// Exercise #2
+// Implement a processStrings version that only goes through the list once
 const processStringsQuick = strings => {
   return strings.map(
     R.pipe(
@@ -27,7 +32,9 @@ const processStringsQuick = strings => {
   )
 }
 
-const processStringsQuickFP = R.map(
+// Exercise #3
+// Implement a processStrings version that is point-free and only goes through the list once
+const processStringsQuickPointfree = R.map(
   R.pipe(
     trim,
     uppercase,
@@ -35,10 +42,18 @@ const processStringsQuickFP = R.map(
   )
 )
 
+// Exercise #4
+// Implement a processStrings version that is point-free, only goes through the list once, and doesn't use Ramda
 const pipeOur = (...fns) => arg => fns.reduce((mem, curr) => curr(mem), arg)
 
 const processStringsOur = strings => {
   return strings.map(pipeOur(trim, uppercase, replaceAwithZ))
 }
 
-module.exports = { processStrings, processStringsFP, processStringsQuick, processStringsQuickFP, processStringsOur }
+module.exports = {
+  processStrings,
+  processStringsPointfree,
+  processStringsQuick,
+  processStringsQuickPointfree,
+  processStringsOur
+}

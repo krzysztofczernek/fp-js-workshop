@@ -13,6 +13,7 @@ const isBiggerThanTen = number => {
   return R.gt(R.__, 10)(number)
 }
 
+// Reference implementation
 const processNumbers = numbers => {
   return numbers
     .filter(isOdd)
@@ -20,13 +21,17 @@ const processNumbers = numbers => {
     .filter(isBiggerThanTen)
 }
 
-const processNumbersFP = R.pipe(
+// Exercise #1
+// Implement a processNumbers version that is point-free
+const processNumbersPointfree = R.pipe(
   R.filter(isOdd),
   R.map(multiplyByTwo),
   R.filter(isBiggerThanTen)
 )
 
-const processNumbersQuickFP = R.into(
+// Exercise #2
+// Implement a processNumbers version that is point-free and only goes through the list once
+const processNumbersQuickPointfree = R.into(
   [],
   R.compose(
     R.filter(isOdd),
@@ -36,7 +41,7 @@ const processNumbersQuickFP = R.into(
 )
 
 // const concat = (acc, curr) => [...acc, curr]
-// const processNumbersQuickFP = R.transduce(
+// const processNumbersQuickPointfree = R.transduce(
 //   R.compose(
 //     R.filter(isOdd),
 //     R.map(multiplyByTwo),
@@ -46,6 +51,8 @@ const processNumbersQuickFP = R.into(
 //   []
 // )
 
+// Exercise #3
+// Implement a processNumbers version that is point-free, only goes through the list once, and doesn't use Ramda
 const pipeOur = (...fns) => arg => fns.reduce((mem, curr) => curr(mem), arg)
 const filter = predicate => step => (acc, curr) => (predicate(curr) ? step(acc, curr) : acc)
 const map = mapper => step => (acc, curr) => step(acc, mapper(curr))
@@ -55,4 +62,4 @@ const transduce = pipeOur(filter(isBiggerThanTen), map(multiplyByTwo), filter(is
 
 const processNumbersQuickOur = numbers => numbers.reduce(transduce, [])
 
-module.exports = { processNumbers, processNumbersFP, processNumbersQuickFP, processNumbersQuickOur }
+module.exports = { processNumbers, processNumbersPointfree, processNumbersQuickPointfree, processNumbersQuickOur }

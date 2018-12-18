@@ -1,8 +1,8 @@
 const {
   processStrings,
-  processStringsFP,
+  processStringsPointfree,
   processStringsQuick,
-  processStringsQuickFP,
+  processStringsQuickPointfree,
   processStringsOur
 } = require('./01')
 
@@ -13,16 +13,16 @@ test('processStrings', () => {
   expect(processStrings(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
 })
 
-test('processStringsFP', () => {
-  expect(processStringsFP(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
+test('processStringsPointfree', () => {
+  expect(processStringsPointfree(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
 })
 
 test('processStringsQuick', () => {
   expect(processStringsQuick(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
 })
 
-test('processStringsQuickFP', () => {
-  expect(processStringsQuickFP(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
+test('processStringsQuickPointfree', () => {
+  expect(processStringsQuickPointfree(STRINGS_TO_PROCESS)).toEqual(EXPECTED_RESULT)
 })
 
 test('processStringsOur', () => {
