@@ -1,5 +1,6 @@
-// Examples:
+// Exercises & inspirations:
 // https://drboolean.gitbooks.io/mostly-adequate-guide-old/
+// https://jrsinclair.com/articles/2016/marvellously-mysterious-javascript-maybe-monad/
 
 const R = require('ramda')
 const { Maybe, Right, Left } = require('./typeclasses')

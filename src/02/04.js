@@ -1,112 +1,40 @@
-// Example from https://jrsinclair.com/articles/2016/marvellously-mysterious-javascript-maybe-monad/
+// Exercises & inspirations:
+// https://drboolean.gitbooks.io/mostly-adequate-guide-old/
+// https://jrsinclair.com/articles/2016/marvellously-mysterious-javascript-maybe-monad/
 
 const R = require('ramda')
+const { Maybe } = require('./typeclasses')
 
-const banners = {
-  AB: '/assets/banners/alberta.jpg',
-  BC: '/assets/banners/british-columbia.jpg',
-  MB: '/assets/banners/manitoba.jpg',
-  NL: '/assets/banners/newfoundland-labrador.jpg',
-  NS: '/assets/banners/nova-scotia.jpg',
-  NT: '/assets/banners/northwest-territories.jpg',
-  ON: '/assets/banners/ontario.jpg',
-  PE: '/assets/banners/prince-edward.jpg',
-  QC: '/assets/banners/quebec.jpg',
-  SK: '/assets/banners/saskatchewan.jpg',
-  YT: '/assets/banners/yukon.jpg'
-}
+// Exercise #1
+// Implement a function that adds two numbers that are possibly null
 
-const correctUser = {
-  email: 'james@example.com',
-  accountDetails: {
-    address: {
-      street: '123 Fake St',
-      city: 'Exampleville',
-      state: 'NS',
-      zip: '1234'
-    }
-  },
-  preferences: {}
-}
+const addSafe = (x, y) =>
+  Maybe.of(R.add)
+    .ap(Maybe.of(x))
+    .ap(Maybe.of(y))
 
-const emptyUser = {}
+// Exercise #2
+// Rewrite addSafe to use lift
 
-const invalidUser = {
-  email: 'john@doe.com'
-}
+const addSafeLifted = (x, y) => R.lift(R.add)(Maybe.of(x), Maybe.of(y))
 
-// Exercise
-// const getUserBanner = (banners, user) => banners[user.accountDetails.address.state]
-// getUserBanner(correctUser)
+// Exercise #3
+// Implement function that calls activate on a user, passing activatedUsers to it
 
-// function getUserBanner(banners, user) {
-//   if (user && user.accountDetails && user.accountDetails.address) {
-//     return banners[user.accountDetails.address.state]
-//   }
+// Data format:
+// const exampleUser = {
+//   id: 1,
+//   name: 'John',
+//   activate: (activatedUsers) => { activatedUsers[1] = true }
 // }
 
-const Maybe = val => {
-  const value = {
-    isNothing: () => val === null || val === undefined,
-    map: fn => (value.isNothing() ? value : Maybe(fn(val))),
-    toString: () => (value.isNothing() ? 'Nothing!' : val),
-    join: () => val,
-    chain: fn => (value.isNothing() ? value : value.map(fn).join()),
-    orElse: fallback => (value.isNothing() ? Maybe(fallback) : value),
-    ap: otherMaybeFn => otherMaybeFn.map(val)
-  }
-  return value
+const validateUser = (user, activatedUsers) =>
+  Maybe.of(user)
+    .map(R.prop('activate'))
+    .ap(Maybe.of(activatedUsers))
+
+module.exports = {
+  addSafe,
+  addSafeLifted,
+  validateUser
 }
-
-const getProvinceBannerSafe = province => Maybe(banners[province])
-
-// console.log(Maybe(null).toString())
-// console.log(Maybe(1).toString())
-// console.log(
-//   Maybe(1)
-//     .map(x => x + 1)
-//     .toString()
-// )
-
-// console.log(
-//   Maybe(correctUser)
-//     .map(R.prop('accountDetails'))
-//     .map(R.prop('address'))
-//     .map(R.prop('state'))
-//     .map(getProvinceBannerSafe)
-//     .toString()
-// )
-
-// console.log(
-//   Maybe(correctUser)
-//     .map(R.prop('accountDetails'))
-//     .map(R.prop('address'))
-//     .map(R.prop('state'))
-//     .chain(getProvinceBannerSafe)
-//     .orElse('/assets/banners/default.jpg')
-//     .toString()
-// )
-
-const getUserBannerUrl = user =>
-  Maybe(user)
-    .map(R.prop('accountDetails'))
-    .map(R.prop('address'))
-    .map(R.prop('state'))
-    .chain(getProvinceBannerSafe)
-    .orElse('/assets/banners/default.jpg')
-
-const setBannerBackground = bannerId => backgroundUrl => {
-  console.log(`setting up ${bannerId} background to ${backgroundUrl}`)
-  return bannerId
-}
-
-const getBannerId = id => Maybe(id)
-
-// console.log(getUserBannerUrl(correctUser).map(setBannerBackground).toString());
-
-console.log(
-  getUserBannerUrl(correctUser)
-    .map(setBannerBackground)
-    .ap(getBannerId('1'))
-    .toString()
-)
