@@ -128,7 +128,7 @@ Left.prototype.getInternalValue = function() {
   return this.__value
 }
 
-Right = function(x) {
+const Right = function(x) {
   this.__value = x
 }
 
@@ -169,7 +169,6 @@ Right.prototype.getInternalValue = function() {
 module.exports = {
   Maybe,
   Identity,
-  Either,
   Right,
   Left,
   map,
